@@ -1,5 +1,6 @@
 package  
 {
+	import enums.EFruitType;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import net.flashpunk.FP;
@@ -88,36 +89,40 @@ package
 			}
 			if (Input.pressed(Key.Z)) {
 				if (currCharge > quarterCharge) {
-					plantTree("apple");
+					plantTree(EFruitType.APPLE);
 				}
 				else {
-					plantTree("banana");
+					plantTree(EFruitType.BANANA);
 				}
 				currCharge = 0;
 				
 			}
 			super.update();
 		}
-		private function plantTree(fruitkind:String):void {
+		private function plantTree(fruitkind:EFruitType):void {
 			var treeCoords:Point = new Point(x, y);
+			var gridSize:int = Global.GRIDSIZE;
 			switch(facingDirection) {
-				case 0: treeCoords.x += 32 + width; break;
-				case 1: treeCoords.y -= 32 + height; break;
-				case 2: treeCoords.x -= 32 + width; break;
-				case 3: treeCoords.y += 32 + height; break;
+				case 0: treeCoords.x += gridSize + width; break;
+				case 1: treeCoords.y -= gridSize + height; break;
+				case 2: treeCoords.x -= gridSize + width; break;
+				case 3: treeCoords.y += gridSize + height; break;
 				default:
 					trace("Wait, how are you not facing any direction?");
 			}
-			switch(fruitkind) {
-				case "apple":
-					FP.world.add(new Tree(treeCoords.x, treeCoords.y).init(1))
-					break;
-				case "banana":
-					FP.world.add(new Tree(treeCoords.x, treeCoords.y).init(0));
-					break;
-				case "boobieberry":
-				default:
-					trace("idk what you're trying to plant.");
+			
+			// Snap the tree's coordinates to the grid.
+			treeCoords.x /= gridSize;
+			treeCoords.x *= gridSize;
+			treeCoords.y /= gridSize;
+			treeCoords.y *= gridSize;
+			
+			// Actually create the tree
+			var tree:Tree = FP.world.create(Tree, true) as Tree;
+			if (tree) {
+				tree.x = treeCoords.x;
+				tree.y = treeCoords.y;
+				tree.init(fruitkind);
 			}
 		}
 		override public function playAnim(state:String = null):void {

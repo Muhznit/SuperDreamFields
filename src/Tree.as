@@ -1,4 +1,5 @@
 package  {
+	import enums.EFruitType;
 	import flash.display.BitmapData;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -17,7 +18,7 @@ package  {
 		treeBitmapData:BitmapData;
 		private var 
 		sprite:Spritemap,
-		species:uint = 0,
+		species:EFruitType,
 		life:uint = 0,
 		fullyGrown:uint = Global.dayLength * 7;
 		
@@ -26,10 +27,10 @@ package  {
 			layer = FP.height - y;
 			super(x, y);
 		}
-		public function init(species:uint = 0):Entity {
+		public function init(species:EFruitType):Entity {
 			this.species = species;
 			if(treeBitmapData == null)
-				utils.ResourceKeeper.loadBitmapFrom("img/terrain/trees.png", loadedSprites);
+				ResourceKeeper.loadBitmapFrom("img/terrain/trees.png", loadedSprites);
 			else
 				loadedSprites(treeBitmapData);
 			return this;
@@ -37,13 +38,24 @@ package  {
 		public function loadedSprites(b:BitmapData):void {
 			if(treeBitmapData == null) treeBitmapData = b;
 			sprite = new Spritemap(b, 64, 128);
-			sprite.setFrame(species);
 			sprite.originX = 32;
 			sprite.originY = 128;
 			sprite.scale = .5;
 			this.type = "solid";
 			setHitbox(16, 16, 8, 16);
 			graphic = sprite;
+		}
+		private function setSpecies(fruitKind:EFruitType):void {
+			if (!sprite)
+				return;
+			switch (fruitKind) {
+				case EFruitType.APPLE:
+					sprite.setFrame(1); break;
+				case EFruitType.BANANA:
+					sprite.setFrame(0); break;
+				default:
+					sprite.visible = false;
+			}
 		}
 		private function interactWithReve(reve:CharacterReve = null):void {
 			// I don't like this.

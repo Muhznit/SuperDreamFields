@@ -12,6 +12,7 @@ package
 	{
 		public static const
 			GRIDSIZE:uint = 32,
+			HALFGRIDSIZE:uint = GRIDSIZE / 2,
 			sfwMode:Boolean = false;
 			
 		private static var deity:Global;
