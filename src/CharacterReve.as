@@ -19,7 +19,6 @@ package
 	{	
 		private var 
 		reveStates:Array = ["umbrella", "normal", "busty"],
-		textGraphic:Text = new Text("Sunlight:"),
 		currReveState:String = "umbrella";
 		
 		public var currCharge:int = 0;

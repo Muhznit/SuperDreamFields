@@ -1,15 +1,12 @@
 package  
 {
 	import flash.display.BitmapData;
-	import flash.display.BlendMode;
 	import flash.geom.Point;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
-	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.TiledImage;
-	import net.flashpunk.graphics.TiledSpritemap;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.masks.Grid;
 	import utils.ResourceKeeper;
@@ -48,7 +45,9 @@ package
 		public function terrainPlz():Tilemap {
 			blueprints = new BitmapData(FIELDWIDTH, FIELDHEIGHT, false);
 			var noiseA:BitmapData = new BitmapData(FIELDWIDTH, FIELDHEIGHT, false);
-			noiseA.perlinNoise(FIELDWIDTH, FIELDHEIGHT, 4, Math.random() * 0xFFFFFFFF, true, false, 7, true);
+			var scale:int = 16;
+			
+			noiseA.perlinNoise(FIELDWIDTH * scale, FIELDHEIGHT * scale, 4, Math.random() * 0xFFFFFFFF, true, false, 7, true);
 			for (var i:int = 0; i < FIELDWIDTH; i++) {
 				for (var j:int = 0; j < FIELDHEIGHT; j++) {
 					if (noiseA.getPixel(i, j) / 0xFFFFFF < 1/4) {
@@ -96,6 +95,7 @@ package
 				tiles.color = currentTimeColor;
 				//backtiles.color = currentTimeColor;
 			}
+			super.update();
 		}
 	}
 

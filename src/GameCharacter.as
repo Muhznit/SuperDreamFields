@@ -13,6 +13,8 @@ package
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.graphics.Text;
+	import net.flashpunk.utils.Draw;
 	/**
 	 * ...
 	 * @author Carvell Scott
@@ -32,54 +34,66 @@ package
 		loadedBitmapData:BitmapData,
 		sprite:Spritemap,
 		charName:String,
+		textGraphic:Text = new Text("Just some placeholder text..."),
 		facingDirection:uint = 0;
-		public var statSpeed:uint = 3
+		public var statSpeed:uint = 3;
 		public function GameCharacter() 
 		{
 			graphic = sprite;
 			setHitbox(32, 24, 16, 24);
 		}
-		override public function update():void {
-			if(Controller.horizontal != 0 || Controller.vertical != 0){
-				var movementAngle:Number = FP.angle(0, 0, Controller.horizontal, Controller.vertical);
-				switch(facingDirection = int((movementAngle / 360) * 4)) {
-					case 0:
-						moveBy(statSpeed, 0, "solid");
-						playAnim(WALKRT);
-						break;
-					case 1:
-						moveBy(0, -statSpeed, "solid");
-						playAnim(WALKUP);
-						break;
-					case 2:
-						moveBy(-statSpeed, 0, "solid");
-						playAnim(WALKLF);
-						break;
-					case 3:
-						moveBy(0, statSpeed, "solid");
-						playAnim(WALKDN);
-						break;
-				}
+		public function getCartesianDirectionFromCoords(x:int, y:int):Number {
+			var movementAngle:Number = FP.angle(0, 0, x, y);
+			return int((movementAngle / 360) * 4);
+		}
+		public function convertCartesianDirectionToString(direction:int):String {
+			switch (direction) {
+				case 0:
+					return "rt";
+				case 1:
+					return "dn";
+				case 2:
+					return "lf";
+				case 3:
+					return "up";
+				default:
+					return "";
 			}
-			else
+		}
+		override public function update():void {
+			var playerRequestedMove:Boolean = Controller.horizontal != 0 || Controller.vertical != 0;
+			var animationName:String = "idle";
+			if (playerRequestedMove) {
+				facingDirection = getCartesianDirectionFromCoords( Controller.horizontal, Controller.vertical);
+				animationName = "walk";
+			}
+			if(playerRequestedMove){
 				switch(facingDirection) {
 					case 0:
-						playAnim(IDLERT); break;
+						moveBy(statSpeed, 0, "solid"); break;
 					case 1:
-						playAnim(IDLEUP); break;
+						moveBy(0, -statSpeed, "solid"); break;
 					case 2:
-						playAnim(IDLELF); break;
+						moveBy(-statSpeed, 0, "solid"); break;
 					case 3:
-						playAnim(IDLEDN); break;
+						moveBy(0, statSpeed, "solid"); break;
 				}
-			x = FP.clamp(x, 0, FP.width - width);
-			y = FP.clamp(y, 0, FP.height - height);
+			}
+			animationName += convertCartesianDirectionToString(facingDirection);
+			playAnim(animationName);
+			x = FP.clamp(x, 0, Overworld.WORLDWIDTH - width);
+			y = FP.clamp(y, 0, Overworld.WORLDHEIGHT - height);
 			layer = FP.height - y;
+			super.update();
 		}
 		public function playAnim(state:String = null):void {
 			if (sprite) {
 				sprite.play(state);
 			}
+		}
+		override public function render():void {
+			Draw.hitbox(this);
+			super.render();
 		}
 		
 	}
