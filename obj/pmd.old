@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.2.1" timestamp="Mon May 25 22:58:35 CDT 2015">
+<pmd version="4.2.1" timestamp="Tue Jun 02 20:53:28 CDT 2015">
+   <file name="C:/Users/Muhznit/Documents/GitHub/SuperDreamFields/src/Battle.as">
+      <violation beginline="9" endline="9" begincolumn="15" endcolumn="15" rule="adobe.ac.pmd.rules.unused.UnusedField" ruleset="All Flex Rules" package="" class="Battle.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private attribute (messageHandler) does not seem to be used. </violation>
+      <violation beginline="14" endline="14" begincolumn="30" endcolumn="30" rule="adobe.ac.pmd.rules.unused.UnusedParameter" ruleset="All Flex Rules" package="" class="Battle.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This parameter (msg) of this function is not used. </violation>
+   </file>
+   <file name="C:/Users/Muhznit/Documents/GitHub/SuperDreamFields/src/BattleSession.as">
+      <violation beginline="9" endline="9" begincolumn="15" endcolumn="15" rule="adobe.ac.pmd.rules.unused.UnusedField" ruleset="All Flex Rules" package="" class="BattleSession.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private attribute (battleData) does not seem to be used. </violation>
+      <violation beginline="18" endline="18" begincolumn="20" endcolumn="20" rule="adobe.ac.pmd.rules.unused.UnusedPrivateMethod" ruleset="All Flex Rules" package="" class="BattleSession.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private method (broadcastChanges) does not seem to be used. </violation>
+      <violation beginline="18" endline="18" begincolumn="20" endcolumn="20" rule="adobe.ac.pmd.rules.unused.EmptyPrivateMethod" ruleset="All Flex Rules" package="" class="BattleSession.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private method (broadcastChanges) is used but its content is empty. </violation>
+   </file>
+   <file name="C:/Users/Muhznit/Documents/GitHub/SuperDreamFields/src/Main.as">
+      <violation beginline="15" endline="15" begincolumn="15" endcolumn="15" rule="adobe.ac.pmd.rules.unused.UnusedField" ruleset="All Flex Rules" package="" class="Main.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private attribute (consoleStateMachine) does not seem to be used. </violation>
+      <violation beginline="17" endline="17" begincolumn="15" endcolumn="15" rule="adobe.ac.pmd.rules.unused.UnusedField" ruleset="All Flex Rules" package="" class="Main.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private attribute (bs) does not seem to be used. </violation>
+   </file>
+   <file name="C:/Users/Muhznit/Documents/GitHub/SuperDreamFields/src/worlds/BattleWorld.as">
+      <violation beginline="11" endline="11" begincolumn="15" endcolumn="15" rule="adobe.ac.pmd.rules.unused.UnusedField" ruleset="All Flex Rules" package="worlds" class="BattleWorld.as" externalInfoUrl="http://opensource.adobe.com/svn/opensource/flexpmd/bin/flex-pmd-ruleset-creator.html?rule=" priority="1">This private attribute (battleData) does not seem to be used. </violation>
+   </file>
 </pmd>

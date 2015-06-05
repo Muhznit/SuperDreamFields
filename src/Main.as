@@ -12,13 +12,14 @@ package
 	 */
 	public class Main extends Engine
 	{
-		private var sm:ConsoleControllerStateMachine = new ConsoleControllerStateMachine;
+		private var simpleConsole:SimpleIOConsole = new SimpleIOConsole;
+		private var bs:BattleSession = new BattleSession;
 		public function Main()
 		{
 			super(640, 480, 60, false);
 			FP.console.enable();
 			FP.world = new Overworld().init();
-			sm.changeState(sm.CONSOLEREADY);
+			simpleConsole.provideMessageHandler(bs.getMessageHandler());
 			
 		}
 		override public function init():void
@@ -26,9 +27,7 @@ package
 			trace("FlashPunk has started successfully!");
 		}
 		override public function update():void {
-			//ConsoleController.getInstance().update();
-			sm.exec();
-
+			simpleConsole.exec();
 			super.update();
 		}
 	}
