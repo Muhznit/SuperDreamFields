@@ -43,13 +43,13 @@ package
 			return state_ready;
 		}
 		public function provideMessageHandler(messageHandler:MessageHandler):SimpleIOConsole {
+			trace("Console now targeting", messageHandler);
 			this.messageHandler = messageHandler;
 			return this;
 		}
 		private function forward(message:String):String {
 			var answer:String = message;
-			if (messageHandler)
-				messageHandler.recieveMessage(BattleMessage.createFrom(message));
+			MessageHandler.sendMessage(messageHandler, Message.createFrom(message));
 			trace(message);
 			return answer;
 		}

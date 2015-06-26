@@ -1,4 +1,4 @@
-package worlds 
+package 
 {
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Text;
@@ -9,31 +9,31 @@ package worlds
 	 * ...
 	 * @author Carvell Scott
 	 */
-	public class BattleWorld extends World
+	public class MainMenu extends World 
 	{
-		private var session:BattleSession;
 		private var summary:Text = new Text("");
-		public function BattleWorld() 
+		private var selection:int = 0;
+		public function MainMenu() 
 		{
 			super();
+			
 		}
-		public static function create(bs:BattleSession):BattleWorld {
-			var retWorld:BattleWorld = new BattleWorld;
-			retWorld.session = bs;
+		public static function create():MainMenu {
+			var retWorld:MainMenu = new MainMenu;
 			return retWorld;
 		}
 		override public function update():void {
-			updateSummary(session.getBattleView().describe());
+			updateSummary(selection);
 		}
-		private function updateSummary(s:String):void {
+		private function updateSummary(selection:int):void {
 			summary.lock();
-			summary.text = s;
+			summary.text = "Main Menu: (work in progress)\nF1 for Overworld\nF2 for BattleWorld\nF3 to go back to previous.";
 			summary.unlock();
 		}
 		override public function render():void {
 			Draw.graphic(summary, FP.camera.x, FP.camera.y + 32);
 			super.render();
-		}
+		}	
 	}
 
 }

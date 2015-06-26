@@ -6,14 +6,14 @@ package
 	 * ...
 	 * @author Carvell Scott
 	 */
-	public class Controller 
+	public class InputTranslator 
 	{
 		public static const
 			MOVEMENT_RT:int = Key.RIGHT,
 			MOVEMENT_LF:int = Key.LEFT,
 			MOVEMENT_UP:int = Key.UP,
 			MOVEMENT_DN:int = Key.DOWN;
-		public function Controller() 
+		public function InputTranslator() 
 		{
 			
 		}

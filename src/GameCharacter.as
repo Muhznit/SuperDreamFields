@@ -39,8 +39,12 @@ package
 		public var statSpeed:uint = 3;
 		public function GameCharacter() 
 		{
-			graphic = sprite;
-			setHitbox(32, 24, 16, 24);
+		}
+		public static function create():GameCharacter {
+			var gc:GameCharacter = new GameCharacter;
+			gc.graphic = gc.sprite;
+			gc.setHitbox(32, 24, 16, 24);
+			return gc;
 		}
 		public function getCartesianDirectionFromCoords(x:int, y:int):Number {
 			var movementAngle:Number = FP.angle(0, 0, x, y);
@@ -61,10 +65,10 @@ package
 			}
 		}
 		override public function update():void {
-			var playerRequestedMove:Boolean = Controller.horizontal != 0 || Controller.vertical != 0;
+			var playerRequestedMove:Boolean = InputTranslator.horizontal != 0 || InputTranslator.vertical != 0;
 			var animationName:String = "idle";
 			if (playerRequestedMove) {
-				facingDirection = getCartesianDirectionFromCoords( Controller.horizontal, Controller.vertical);
+				facingDirection = getCartesianDirectionFromCoords( InputTranslator.horizontal, InputTranslator.vertical);
 				animationName = "walk";
 			}
 			if(playerRequestedMove){

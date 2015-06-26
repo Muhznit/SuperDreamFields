@@ -21,26 +21,19 @@ package
 		{
 			
 		}
-		public static function restart():void {
-			FP.world.removeAll();
-			var nextWorld:Overworld = new Overworld();
-			FP.world = nextWorld;
-			nextWorld.init();
+		public static function create():Overworld {
+			var ow:Overworld = new Overworld;
+			ow.init();
+			return ow;
 		}
 		public function addReve():void {
-			var playerCharacter:GameCharacter = new GameCharacter();
+			var playerCharacter:GameCharacter = GameCharacter.create();
 			playerCharacter.name = "playerCharacter";
 			add(playerCharacter);
 			playerCharacter.x = FP.halfWidth;
 			playerCharacter.y = FP.halfHeight;
 		}
-		private static function updateCamera(cameraFocus:GameCharacter):void {
-			if (cameraFocus == null)
-				return;
-			FP.camera.x = FP.clamp(cameraFocus.x - FP.screen.width/2, 0, WORLDWIDTH - 640);
-			FP.camera.y = FP.clamp(cameraFocus.y - FP.screen.height/2, 0, WORLDHEIGHT - 480);
-		}
-		public function init():Overworld {
+		private function init():Overworld {
 			trace("Terrain Initialized");
 			add(new Terrain());
 			addReve();
@@ -52,7 +45,7 @@ package
 			if (time % (dayLength / 6) == 0)
 				trace(timeOfDay(this));
 		}
-		public function get normalizedTime():Number {
+		public function getNormalizedTime():Number {
 			return time / dayLength;
 		}
 		public static function timeOfDay(world:Overworld):String {
@@ -60,15 +53,18 @@ package
 			return times[int((world.time / world.dayLength) * times.length)];
 		}
 		public static function sunshineAvailable(world:Overworld):Number {
-			var ret:Number = Math.sin((world.time / world.dayLength) * Math.PI);
+			var ret:Number = Math.sin(world.getNormalizedTime() * Math.PI);
 			return ret;
+		}
+		private static function updateCamera(cameraFocus:GameCharacter):void {
+			if (cameraFocus == null)
+				return;
+			FP.camera.x = FP.clamp(cameraFocus.x - FP.screen.width/2, 0, WORLDWIDTH - FP.screen.width);
+			FP.camera.y = FP.clamp(cameraFocus.y - FP.screen.height/2, 0, WORLDHEIGHT - FP.screen.height);
 		}
 		override public function update():void {
 			updateTime();
 			updateCamera(getInstance("playerCharacter"));
-			if (Input.pressed(Key.DELETE)) {
-				Overworld.restart();
-			}
 			super.update();
 		}
 		

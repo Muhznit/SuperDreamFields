@@ -1,13 +1,24 @@
 package 
 {
-	
 	/**
 	 * ...
 	 * @author Carvell Scott
 	 */
-	public interface BattleController 
+	public class BattleController
 	{
-		function getMessageHandler():MessageHandler;
+		private var parent:BattleMVC;
+		public function BattleController() 
+		{
+			
+		}
+		public static function create(parent:BattleMVC):BattleController {
+			var bc:BattleController = new BattleController;
+			bc.parent = parent;
+			return bc;
+		}
+		public function getBattleModel():BattleModel {
+			return parent.getBattleModel();
+		}
 	}
-	
+
 }
